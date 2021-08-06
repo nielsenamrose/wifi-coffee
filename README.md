@@ -10,10 +10,9 @@ I am using the BeagleBone Green Wireless. Just because I still have a couple of 
 
 ### Flashing the BBW
 
-I found that the latest version of the Debian image (10.3) did no work well with VS Code, so I rolled back to version 9.5.
+It is a know fact, that the number of bugs in a software project is constant. You just get differnet bugs with each new version. I wanted to develop on a PC running windows 10 and I wanted to use VS Code with the Remote Development extension. I was only able to get this to work with the Debian 9.13 image.
 
-https://debian.beagleboard.org/images/BBB-blank-debian-9.5-iot-armhf-2018-10-07-4gb.img.xz
-
+https://rcn-ee.com/rootfs/bb.org/testing/2020-08-25/stretch-iot/bone-eMMC-flasher-debian-9.13-iot-armhf-2020-08-25-4gb.img.xz
 
 ### Configure Wi-Fi and static IP address
 
