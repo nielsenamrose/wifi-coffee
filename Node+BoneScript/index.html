@@ -8,10 +8,15 @@
   </head>
   <body>
     <img id="background" src="background.jpg"></img>
-    <div id="button"></div>
+    <div id="circle" class="off"></div>
     <script>
-        const button = document.querySelector("#button");
-        button.addEventListener("click", fetch('http://192.168.1.116/api/push'));
+        const circle = document.querySelector("#circle");
+        push = function(){
+            fetch('http://192.168.1.116:8081/api/push');
+            circle.classList.replace("off", "on");
+            setTimeout(() => circle.classList.replace("on", "off"), 2000);
+        }
+        circle.addEventListener("click", push);
     </script>
   </body>
 </html>
