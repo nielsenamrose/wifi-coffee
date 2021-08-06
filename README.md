@@ -5,6 +5,8 @@ Wi-Fi enabled coffee machine
 
 https://beagleboard.org/Support/BoneScript/
 
+https://debian.beagleboard.org/images/BBB-blank-debian-9.5-iot-armhf-2018-10-07-4gb.img.xz
+
 
 ## Configure Wi-Fi and static IP address
 
