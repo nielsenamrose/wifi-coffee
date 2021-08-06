@@ -16,7 +16,7 @@ http
       b.digitalWrite(buttonOut, b.HIGH);
       setTimeout(() => {
         b.digitalWrite(buttonOut, b.LOW);
-      }, 300);
+      }, 200);
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {
       setTimeout(() => {
@@ -25,6 +25,10 @@ http
     } else {
       statusCode = 404;
     }
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Request-Method", "*");
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+    res.setHeader("Access-Control-Allow-Headers", "*");
     res.writeHead(statusCode, { "Content-Type": "text/json" });
     res.end(JSON.stringify({ url: res.url, value: ledInValue, timestamp: Date.now() - ledInChangeTime }));
   })

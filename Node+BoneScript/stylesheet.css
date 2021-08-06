@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  background-color: black;
+}
+
+#background {
+  position: absolute;
+  display: block;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#button {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
