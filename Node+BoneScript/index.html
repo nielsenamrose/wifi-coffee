@@ -9,13 +9,21 @@
   </head>
   <body>
     <img id="background" src="background.jpg"></img>
-    <div id="circle" class="off"></div>
+    <div id="circle"></div>
     <script>
         const circle = document.querySelector("#circle");
+        toggle = function(start) {
+            setTimeout(() => {
+                circle.classList.toggle("on"); 
+                if (Date.now() - start < 10000)
+                    toggle(start);
+            }, 500);
+        }
         push = function(){
             fetch('http://192.168.1.116:8081/api/push');
-            circle.classList.replace("off", "on");
-            setTimeout(() => circle.classList.replace("on", "off"), 2000);
+            let start = Date.now();
+            circle.classList.toggle("on");
+            toggle(start);
         }
         circle.addEventListener("click", push);
     </script>
