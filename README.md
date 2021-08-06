@@ -1,7 +1,8 @@
 # wifi-coffee
+
 Wi-Fi enabled coffee machine
 
-
+This is **not** a learning project. The coffee machine is a mission critical household appliance.
 
 https://beagleboard.org/Support/BoneScript/
 
