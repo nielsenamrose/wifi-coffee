@@ -1,14 +1,12 @@
-function run() {
-  var b = require("bonescript");
-  b.pinMode("P8_19", b.INPUT);
-  getButtonStatus();
-  function getButtonStatus() {
-    b.digitalRead("P8_19", onButtonRead);
-  }
-  function onButtonRead(x) {
-    $("#buttonStatus").html(x.value);
-    setTimeout(getButtonStatus, 20);
-  }
-}
+var http = require("http");
+var b = require("bonescript");
+var fs = require("fs");
+//var index = fs.readFileSync('index.html');
 
-setTargetAddress("192.168.1.11:80", { initialized: run });
+http
+  .createServer(function (req, res) {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    message = { Hello: "World" };
+    res.end(JSON.stringify(message));
+  })
+  .listen(8081);
