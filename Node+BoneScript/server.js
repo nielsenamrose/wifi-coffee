@@ -26,7 +26,7 @@ http
       statusCode = 404;
     }
     res.writeHead(statusCode, { "Content-Type": "text/json" });
-    res.end(JSON.stringify({ url: res.url, value: powerLedValue, timestamp: Date.now() - ledInChangeTime }));
+    res.end(JSON.stringify({ url: res.url, value: ledInValue, timestamp: Date.now() - ledInChangeTime }));
   })
   .listen(8081);
 
@@ -37,8 +37,8 @@ b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(
   ledIn,
   (x) => {
-    powerLedValue = x.value;
-    powerLedChangeTime = Date.now();
+    ledInValue = x.value;
+    ledInChangeTime = Date.now();
   },
   b.CHANGE
 );
