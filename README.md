@@ -4,7 +4,13 @@ Wi-Fi enabled coffee machine
 
 This is **not** a learning project. The coffee machine is a mission critical household appliance.
 
-https://beagleboard.org/Support/BoneScript/
+# Hardware setup
+
+I am using the BeagleBone Green Wireless. Just because I still have a couple of them laying around from another project.
+
+## Flashing the BBW
+
+I found that the latest version of the Debian image (10.3) did no work well with VS Code, so I rolled back to version 9.5.
 
 https://debian.beagleboard.org/images/BBB-blank-debian-9.5-iot-armhf-2018-10-07-4gb.img.xz
 
