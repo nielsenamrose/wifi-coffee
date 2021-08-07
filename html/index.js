@@ -21,7 +21,7 @@ const updateCircle = function () {
   circle.style["border-width"] = `${b}px`;
 };
 window.addEventListener("resize", updateCircle);
-updateCircle();
+window.addEventListener("load", updateCircle);
 
 setInterval(() => {
   if (doToggle) circle.classList.toggle("on");
