@@ -49,9 +49,7 @@ const runServer = function () {
       })
       .listen(8081);
   } catch (ex) {
-    setTimeout(() => {
-      runServer();
-    }, 3000);
+    setTimeout(runServer, 3000);
   }
 };
 
