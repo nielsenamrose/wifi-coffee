@@ -2,7 +2,6 @@
 
 const http = require("http");
 const b = require("bonescript");
-const { setInterval } = require("timers/promises");
 
 const buttonOut = "P8_8";
 const ledIn = "P8_7";
