@@ -40,6 +40,6 @@ Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
 $ sudo mkdir /var/www/http
-$ sudo cp http/* /var/www/http/
+$ sudo cp http/* /var/www/html/
 $ sudo cp server.js /var/lib/cloud9/autorun/
 ```
