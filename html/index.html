@@ -6,23 +6,10 @@
     <link rel="icon" href="favicon.png">
     <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <script src="index.js" defer></script>
   </head>
   <body>
     <img id="background" src="background.jpg"></img>
-    <div id="circle"></div>
-    <script>
-        const circle = document.querySelector("#circle");
-        var doToggle = false;
-        setInterval(() => {
-          if (doToggle)
-            circle.classList.toggle("on"); 
-        }, 500);
-        push = function() {
-            fetch('http://192.168.1.15:8081/api/push');
-            doToggle = true;
-            setTimeout(() => {doToggle=false;}, 10000);
-        }
-        circle.addEventListener("click", push);
-    </script>
+    <div id="circle"></div>    
   </body>
 </html>
