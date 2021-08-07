@@ -12,18 +12,15 @@
     <div id="circle"></div>
     <script>
         const circle = document.querySelector("#circle");
-        toggle = function(start) {
-            setTimeout(() => {
-                circle.classList.toggle("on"); 
-                if (Date.now() - start < 10000)
-                    toggle(start);
-            }, 500);
-        }
-        push = function(){
+        var doToggle = false;
+        setInterval(() => {
+          if (doToggle)
+            circle.classList.toggle("on"); 
+        }, 500);
+        push = function() {
             fetch('http://192.168.1.15:8081/api/push');
-            let start = Date.now();
-            circle.classList.toggle("on");
-            toggle(start);
+            doToggle = true;
+            setTimeout(() => {doToggle=false;}, 10000);
         }
         circle.addEventListener("click", push);
     </script>
