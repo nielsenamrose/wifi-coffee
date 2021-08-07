@@ -23,37 +23,37 @@ b.attachInterrupt(
   b.CHANGE
 );
 
-runServer = function () {
-  try {
-    http
-      .createServer((req, res) => {
-        let statusCode = 200;
-        if (req.url.endsWith("api/push")) {
-          b.digitalWrite(buttonOut, b.HIGH);
-          setTimeout(() => {
-            b.digitalWrite(buttonOut, b.LOW);
-          }, 200);
-        } else if (req.url.endsWith("api/read")) {
-        } else if (req.url.endsWith("api/kill")) {
-          setTimeout(() => {
-            process.exit(0);
-          }, 1000);
-        } else {
-          statusCode = 404;
-        }
-        res.setHeader("Access-Control-Allow-Origin", "*");
-        res.setHeader("Access-Control-Request-Method", "*");
-        res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
-        res.setHeader("Access-Control-Allow-Headers", "*");
-        res.writeHead(statusCode, { "Content-Type": "text/json" });
-        res.end(JSON.stringify({ url: res.url, value: ledInValue, timestamp: Date.now() - ledInChangeTime }));
-      })
-      .listen(8081);
-  } catch (ex) {
-    setTimeout(() => {
-      runServer();
-    }, 3000);
-  }
-};
+// runServer = function () {
+//   try {
+http
+  .createServer((req, res) => {
+    let statusCode = 200;
+    if (req.url.endsWith("api/push")) {
+      b.digitalWrite(buttonOut, b.HIGH);
+      setTimeout(() => {
+        b.digitalWrite(buttonOut, b.LOW);
+      }, 200);
+    } else if (req.url.endsWith("api/read")) {
+    } else if (req.url.endsWith("api/kill")) {
+      setTimeout(() => {
+        process.exit(0);
+      }, 1000);
+    } else {
+      statusCode = 404;
+    }
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Request-Method", "*");
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.writeHead(statusCode, { "Content-Type": "text/json" });
+    res.end(JSON.stringify({ url: res.url, value: ledInValue, timestamp: Date.now() - ledInChangeTime }));
+  })
+  .listen(8081);
+//   } catch (ex) {
+//     setTimeout(() => {
+//       runServer();
+//     }, 3000);
+//   }
+// };
 
-runServer();
+// runServer();
