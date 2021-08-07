@@ -11,7 +11,7 @@ I am using the BeagleBone Green Wireless. Just because I still have a couple of 
 
 ### Flashing the BBGW
 
-I have flashed my BBGW with the [Debian 10.3 image](https://debian.beagleboard.org/images/bone-eMMC-flasher-debian-10.3-iot-armhf-2020-04-06-4gb.img.xz)
+Flash the BBGW with the [Debian 10.3 image](https://debian.beagleboard.org/images/bone-eMMC-flasher-debian-10.3-iot-armhf-2020-04-06-4gb.img.xz)
 
 ### Configure Wi-Fi and static IP address
 
