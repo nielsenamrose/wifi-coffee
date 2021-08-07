@@ -22,7 +22,7 @@ b.attachInterrupt(
   b.CHANGE
 );
 
-runServer = function () {
+const runServer = function () {
   try {
     http
       .createServer((req, res) => {
