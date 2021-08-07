@@ -41,15 +41,5 @@ $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
 $ sudo mkdir /var/www/http
 $ sudo cp http/* /var/www/http/
-```
-### Run start.sh when the device starts
-
-Edit crontab
-```
-$ sudo crontab -e
-```
-
-Add the line
-```
-@reboot cd /home/debian/wifi-coffee && start.sh &
+$ sudo cp server.js /var/lib/cloud9/autorun/
 ```
