@@ -15,14 +15,14 @@
       const circle = document.querySelector("#circle");
       
       const updateCircle = function () {
-        var ratio = img.naturalWidth / img.naturalHeight;
-        var width = img.height * ratio;
+        const ratio = img.naturalWidth / img.naturalHeight;
+        const width = img.height * ratio;
         if (width > img.width) {
           width = img.width;
         }
-        let r = width*0.245;
-        let b = width*0.0564;
-        console.log(`width=${width} r=${r}`);
+        const r = width*0.245;
+        const b = width*0.0564;
+        //console.log(`width=${width} r=${r}`);
         circle.style.width = `${2 * r}px`;
         circle.style.height = `${2 * r}px`;
         circle.style.transform = `translate(${img.width / 2 - r - b}px, ${img.height / 2 - r - b}px)`;
@@ -30,27 +30,38 @@
       };
       window.addEventListener("resize", updateCircle);
       window.addEventListener("load", updateCircle);
-
-      var valueAge = 0;
       
-      const handleData = function(data) {
-        console.log(data);
-        ledInChangeTime = data.timestamp;
-        if (valueAge >= 10000)
-          circle.classList.toggle("on", data.value);
+      var value = false;
+      var age = undefined;
+      var toggle = true;
+      var interval = undefined;
+
+      start = function(){
+        if (interval) clearInterval(interval);
+        interval = setInterval(() => {
+          fetch("http://192.168.1.15:8081/api/read")
+            .then(response => response.json())
+            .then(data => {
+              value = data.value == 1; 
+              age = data.age
+              if (value) toggle = true;
+              if (age >= 10000) circle.classList.toggle("on", value);
+            });
+          if (toggle && age < 10000) circle.classList.toggle("on");
+        }, 500);
       }
 
-      setInterval(() => {
-        fetch("http://192.168.1.15:8081/api/read")
-          .then((response) => response.json())
-          .then(handleData);
-        if (valueAge > 10000) circle.classList.toggle("on");
-      }, 500);
-      
       circle.addEventListener("click", () => {
-        fetch("http://192.168.1.15:8081/api/push");
-        circle.classList.toggle("on");
+        fetch("http://192.168.1.15:8081/api/push")
+          .then(response => {
+            value = toggle = !value;
+            age = 0;
+            circle.classList.toggle("on", value);
+            start();
+          });
       });
+
+      start();
     </script>
   </body>
 </html>
