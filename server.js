@@ -13,15 +13,10 @@ b.pinMode(buttonOut, b.OUTPUT);
 b.digitalWrite(buttonOut, b.LOW);
 
 b.pinMode(ledIn, b.INPUT);
-b.attachInterrupt(
-  ledIn,
-  true,
-  (x) => {
-    ledInValue = x.value;
-    ledInChangeTime = Date.now();
-  },
-  b.CHANGE
-);
+b.attachInterrupt(ledIn, true, b.CHANGE, (x) => {
+  ledInValue = x.value;
+  ledInChangeTime = Date.now();
+});
 
 http
   .createServer((req, res) => {
