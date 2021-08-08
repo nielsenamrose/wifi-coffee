@@ -40,8 +40,8 @@ http
     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
     res.setHeader("Access-Control-Allow-Headers", "*");
     res.writeHead(statusCode, { "Content-Type": "text/json" });
-    console.log(res.url);
+    console.log(req.url);
     console.log(ledInValue);
-    res.end(JSON.stringify({ url: res.url, value: ledInValue, age: Date.now() - ledInChangeTime }));
+    res.end(JSON.stringify({ url: req.url, value: ledInValue, age: Date.now() - ledInChangeTime }));
   })
   .listen(8081);
