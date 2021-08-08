@@ -14,7 +14,7 @@ b.digitalWrite(buttonOut, b.LOW);
 
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (x) => {
-  console.log("CHANGE");
+  console.log(x);
   ledInValue = x.value;
   ledInChangeTime = Date.now();
 });
@@ -40,8 +40,8 @@ http
     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET");
     res.setHeader("Access-Control-Allow-Headers", "*");
     res.writeHead(statusCode, { "Content-Type": "text/json" });
-    console.log(req.url);
-    console.log(ledInValue);
+    //console.log(req.url);
+    //console.log(ledInValue);
     res.end(JSON.stringify({ url: req.url, value: ledInValue, age: Date.now() - ledInChangeTime }));
   })
   .listen(8081);
