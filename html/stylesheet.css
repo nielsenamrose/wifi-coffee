@@ -13,7 +13,7 @@ body {
 #circle {
   position: absolute;
   border-radius: 50%;
-  border-color: whitesmoke;
+  border-color: rgb(245, 253, 253);
 }
 
 .on {
