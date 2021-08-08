@@ -13,19 +13,16 @@
     <script>
       const img = document.querySelector("#background");
       const circle = document.querySelector("#circle");
-
-      var doToggle = false;
-
+      
       const updateCircle = function () {
         var ratio = img.naturalWidth / img.naturalHeight;
         var width = img.height * ratio;
         if (width > img.width) {
           width = img.width;
         }
-        console.log(`${width}`);
         let r = width*0.245;
         let b = width*0.0564;
-        console.log(r);
+        console.log(`width=${width} r=${r}`);
         circle.style.width = `${2 * r}px`;
         circle.style.height = `${2 * r}px`;
         circle.style.transform = `translate(${img.width / 2 - r - b}px, ${img.height / 2 - r - b}px)`;
@@ -34,16 +31,25 @@
       window.addEventListener("resize", updateCircle);
       window.addEventListener("load", updateCircle);
 
-      setInterval(() => {
-        if (doToggle) circle.classList.toggle("on");
-      }, 500);
+      var valueAge = 0;
+      
+      const handleData = function(data) {
+        console.log(data);
+        ledInChangeTime = data.timestamp;
+        if (valueAge >= 10000)
+          circle.classList.toggle("on", data.value);
+      }
 
+      setInterval(() => {
+        fetch("http://192.168.1.15:8081/api/read")
+          .then((response) => response.json())
+          .then(handleData);
+        if (valueAge > 10000) circle.classList.toggle("on");
+      }, 500);
+      
       circle.addEventListener("click", () => {
         fetch("http://192.168.1.15:8081/api/push");
-        doToggle = true;
-        setTimeout(() => {
-          doToggle = false;
-        }, 10000);
+        circle.classList.toggle("on");
       });
     </script>
   </body>
