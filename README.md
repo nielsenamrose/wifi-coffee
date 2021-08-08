@@ -36,6 +36,14 @@ connmanctl> quit
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
 ## Install software
+
+Install required Epoll node module
+```
+sudo npm install -g epoll --unsafe-perm=true --allow-root
+```
+TODO: Not sure that --unsafe-perm=true is necessary
+
+
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
