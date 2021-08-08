@@ -15,6 +15,7 @@ b.digitalWrite(buttonOut, b.LOW);
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(
   ledIn,
+  true,
   (x) => {
     ledInValue = x.value;
     ledInChangeTime = Date.now();
