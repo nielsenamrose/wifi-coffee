@@ -10,9 +10,11 @@
   <body>
     <img id="background" src="background.jpg"></img>
     <div id="circle"></div>    
+    <div id="errorMessage"></div>
     <script>
       const img = document.querySelector("#background");
       const circle = document.querySelector("#circle");
+      const errorMessage = document.querySelector("#errorMessage");
       
       const updateCircle = function () {
         const ratio = img.naturalWidth / img.naturalHeight;
@@ -36,6 +38,10 @@
       var toggle = true;
       var interval = undefined;
 
+      emitError = function(message) {
+        errorMessage.innerHTML = message;
+      }
+
       start = function(){
         if (interval) clearInterval(interval);
         interval = setInterval(() => {
@@ -46,7 +52,8 @@
               age = data.age
               if (value) toggle = true;
               if (age >= 10000) circle.classList.toggle("on", value);
-            });
+              emitError("");
+            }).catch(error => emitError(`Error: ${error}`));
           if (toggle && age < 10000) circle.classList.toggle("on");
         }, 500);
       }
@@ -58,7 +65,8 @@
             age = 0;
             circle.classList.toggle("on", value);
             start();
-          });
+            emitError("");
+          }).catch(error => emitError(`Error: ${error}`));
       });
 
       start();
