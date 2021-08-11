@@ -16,7 +16,12 @@
       const circle = document.querySelector("#circle");
       const errorMessage = document.querySelector("#errorMessage");
       
-      const updateCircle = function () {
+      var value = false;
+      var age = undefined;
+      var toggle = true;
+      var interval = undefined;
+
+      updateCircle = function () {
         const ratio = img.naturalWidth / img.naturalHeight;
         var width = img.height * ratio;
         if (width > img.width) {
@@ -30,13 +35,6 @@
         circle.style.transform = `translate(${img.width / 2 - r - b}px, ${img.height / 2 - r - b}px)`;
         circle.style["border-width"] = `${b}px`;
       };
-      window.addEventListener("resize", updateCircle);
-      window.addEventListener("load", updateCircle);
-      
-      var value = false;
-      var age = undefined;
-      var toggle = true;
-      var interval = undefined;
 
       emitError = function(message) {
         errorMessage.innerHTML = message;
@@ -53,11 +51,14 @@
               if (value) toggle = true;
               if (age >= 10000) circle.classList.toggle("on", value);
               emitError("");
-            }).catch(error => emitError(`Error: ${error}`));
+            }).catch(error => emitError(`Error: ${error.message}`));
           if (toggle && age < 10000) circle.classList.toggle("on");
         }, 500);
       }
 
+      window.addEventListener("resize", updateCircle);
+      window.addEventListener("load", updateCircle);
+            
       circle.addEventListener("click", () => {
         fetch("http://192.168.1.15:8081/api/push")
           .then(response => {
@@ -66,7 +67,7 @@
             circle.classList.toggle("on", value);
             start();
             emitError("");
-          }).catch(error => emitError(`Error: ${error}`));
+          }).catch(error => emitError(`Error: ${error.message}`));
       });
 
       start();
