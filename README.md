@@ -40,9 +40,8 @@ Install required Epoll node module
 ```
 sudo npm install -g epoll --unsafe-perm=true --allow-root
 ```
-TODO: Not sure that --unsafe-perm=true is necessary
 
-
+Clone repository and copy files to default locations for NGinx web server and Cloud0 autorun:
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
