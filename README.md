@@ -28,7 +28,7 @@ connmanctl> services
 Confirm there is a *AO or *AR next to the Nexwork ID
 ```
 connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --ipv4 manual 192.168.1.15 255.255.255.0 192.168.1.1
-connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --nameservers 8.8.8.8 4.4.4.4
+connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --nameservers 8.8.8.8 8.8.4.4
 connmanctl> quit
 ```
 
