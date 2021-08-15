@@ -1,6 +1,7 @@
 # Wi-Fi enabled coffee machine
 
-This is **not** a learning project. The coffee machine is a mission critical household appliance.
+
+
 
 This is the simplest solution I could think of. This implementation uses the pre installed Node.js and [BoneScript](https://beagleboard.org/Support/BoneScript/)
 
