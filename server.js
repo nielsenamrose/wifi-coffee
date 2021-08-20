@@ -23,7 +23,7 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   ledInChangeTime = Date.now();
 });
 
-startGrinderTimer = function () {
+const startGrinderTimer = function () {
   setTimeout(() => {
     grinderRuns -= 1;
     if (grinderRuns === 0) b.digitalWrite(grinderOut, b.LOW);
