@@ -15,6 +15,9 @@ var grinderRuns = 0;
 b.pinMode(powerOut, b.OUTPUT);
 b.digitalWrite(powerOut, b.LOW);
 
+b.pinMode(grinderOut, b.OUTPUT);
+b.digitalWrite(grinderOut, b.LOW);
+
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   //console.log(err);

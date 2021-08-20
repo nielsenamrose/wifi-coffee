@@ -14,7 +14,7 @@
     <div id="errorMessage"></div>
     <script>
       const img = document.querySelector("#background");
-
+      const grinder = document.querySelector("#grinder"); 
       const circle = document.querySelector("#circle");
       const errorMessage = document.querySelector("#errorMessage");
       
@@ -45,7 +45,7 @@
       start = function(){
         if (interval) clearInterval(interval);
         interval = setInterval(() => {
-          fetch("http://192.168.1.15:8081/api/read")
+          fetch("http://192.168.1.17:8081/api/read")
             .then(response => response.json())
             .then(data => {
               value = data.value == 1; 
@@ -61,8 +61,14 @@
       window.addEventListener("resize", updateCircle);
       window.addEventListener("load", updateCircle);
             
+      grinder.addEventListener("click", () => {
+        fetch("http://192.168.1.17:8081/api/pushGrinder")
+          .then(response => {})
+          .catch(error => emitError(`Error: ${error.message}`));
+      });
+
       circle.addEventListener("click", () => {
-        fetch("http://192.168.1.15:8081/api/push")
+        fetch("http://192.168.1.17:8081/api/pushPower")
           .then(response => {
             value = toggle = !value;
             age = 0;
