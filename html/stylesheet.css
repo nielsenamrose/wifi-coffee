@@ -10,6 +10,15 @@ body {
   object-fit: contain;
 }
 
+#grinder {
+  position: absolute;
+  width: 100%;
+  height: 25%;
+  object-fit: contain;
+  margin-top: 2%;
+  top: 0px;
+}
+
 #circle {
   position: absolute;
   border-radius: 50%;
