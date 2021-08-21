@@ -48,6 +48,7 @@
           fetch("http://192.168.1.17:8081/api/read")
             .then(response => response.json())
             .then(data => {
+              console.log(data);
               value = data.value == 1; 
               age = data.age
               if (value) toggle = true;
