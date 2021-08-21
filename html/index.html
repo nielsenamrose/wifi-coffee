@@ -49,7 +49,7 @@
               value = data.value == 1; 
               age = data.age
               if (value) toggle = true;
-              if (age >= 10000) circle.classList.toggle("on", value);
+              if (age >= 1000) circle.classList.toggle("on", value);
               emitError("");
             }).catch(error => emitError(`Error: ${error.message}`));
           if (toggle && age < 1000) circle.classList.toggle("on");
