@@ -4,13 +4,17 @@ const http = require("http");
 const b = require("bonescript");
 
 const buttonOut = "P9_15";
-const ledIn = "P8_10";
+const manualOut = "P9_23";
+const ledIn = "P9_41";
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
 
 b.pinMode(buttonOut, b.OUTPUT);
 b.digitalWrite(buttonOut, b.LOW);
+
+b.pinMode(manualOut, b.OUTPUT);
+b.digitalWrite(manualOut, b.LOW);
 
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
@@ -27,6 +31,11 @@ http
       b.digitalWrite(buttonOut, b.HIGH);
       setTimeout(() => {
         b.digitalWrite(buttonOut, b.LOW);
+      }, 200);
+    } else if (req.url.endsWith("api/pushManual")) {
+      b.digitalWrite(manualOut, b.HIGH);
+      setTimeout(() => {
+        b.digitalWrite(manualOut, b.LOW);
       }, 200);
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {
