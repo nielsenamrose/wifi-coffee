@@ -5,7 +5,7 @@ const b = require("bonescript");
 
 const powerOut = "P8_7";
 const grinderOut = "P9_15";
-const ledIn = "P8_10";
+const ledIn = "P9_41";
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
