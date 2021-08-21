@@ -52,7 +52,7 @@
               if (age >= 10000) circle.classList.toggle("on", value);
               emitError("");
             }).catch(error => emitError(`Error: ${error.message}`));
-          if (toggle && age < 10000) circle.classList.toggle("on");
+          if (toggle && age < 1000) circle.classList.toggle("on");
         }, 500);
       }
 
