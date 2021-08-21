@@ -21,7 +21,7 @@ b.digitalWrite(grinderOut, b.LOW);
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   //console.log(err);
-  //console.log(response);
+  console.log(response);
   ledInValue = response.value;
   ledInChangeTime = Date.now();
 });
