@@ -3,7 +3,7 @@
 const http = require("http");
 const b = require("bonescript");
 
-const buttonOut = "P9_15";
+const powerOut = "P9_15";
 const manualOut = "P9_23";
 const grinderOut = "P9_25";
 
