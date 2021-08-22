@@ -3,8 +3,10 @@
 const http = require("http");
 const b = require("bonescript");
 
-const powerOut = "P8_7";
-const grinderOut = "P9_15";
+const buttonOut = "P9_15";
+const manualOut = "P9_23";
+const grinderOut = "P9_25";
+
 const ledIn = "P9_41";
 
 var ledInValue = 0;
@@ -17,6 +19,9 @@ b.digitalWrite(powerOut, b.LOW);
 
 b.pinMode(grinderOut, b.OUTPUT);
 b.digitalWrite(grinderOut, b.LOW);
+
+b.pinMode(manualOut, b.OUTPUT);
+b.digitalWrite(manualOut, b.LOW);
 
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
@@ -48,6 +53,11 @@ http
         startGrinderTimer();
       }
       grinderRuns += 1;
+    } else if (req.url.endsWith("api/pushManual")) {
+      b.digitalWrite(manualOut, b.HIGH);
+      setTimeout(() => {
+        b.digitalWrite(manualOut, b.LOW);
+      }, 200);
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {
       setTimeout(() => {

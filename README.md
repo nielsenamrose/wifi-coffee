@@ -1,9 +1,8 @@
 # Wi-Fi enabled coffee machine
 
-This is **not** a learning project. The coffee machine is a mission critical household appliance.
-
-This is the simplest solution I could think of. This implementation uses the pre installed Node.js and [BoneScript](https://beagleboard.org/Support/BoneScript/)
-
+The solution consists of two software components:
+1. A web service implemented using Node.js and [BoneScript](https://beagleboard.org/Support/BoneScript/) listing on port 8081.
+2. A static web page served up by the preinstalled Nginx webserver listening on port 8080.
 
 ## Hardware setup
 
@@ -29,7 +28,7 @@ connmanctl> services
 Confirm there is a *AO or *AR next to the Nexwork ID
 ```
 connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --ipv4 manual 192.168.1.15 255.255.255.0 192.168.1.1
-connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --nameservers 8.8.8.8 4.4.4.4
+connmanctl> config wifi_884aea627540_4e69656c73656e34_managed_psk --nameservers 8.8.8.8 8.8.4.4
 connmanctl> quit
 ```
 
@@ -41,9 +40,8 @@ Install required Epoll node module
 ```
 sudo npm install -g epoll --unsafe-perm=true --allow-root
 ```
-TODO: Not sure that --unsafe-perm=true is necessary
 
-
+Clone repository and copy files to default locations for NGinx web server and Cloud0 autorun:
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
