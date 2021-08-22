@@ -5,13 +5,20 @@ const b = require("bonescript");
 
 const buttonOut = "P9_15";
 const manualOut = "P9_23";
+const grinderOut = "P9_25";
+
 const ledIn = "P9_41";
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
 
-b.pinMode(buttonOut, b.OUTPUT);
-b.digitalWrite(buttonOut, b.LOW);
+var grinderRuns = 0;
+
+b.pinMode(powerOut, b.OUTPUT);
+b.digitalWrite(powerOut, b.LOW);
+
+b.pinMode(grinderOut, b.OUTPUT);
+b.digitalWrite(grinderOut, b.LOW);
 
 b.pinMode(manualOut, b.OUTPUT);
 b.digitalWrite(manualOut, b.LOW);
@@ -19,19 +26,33 @@ b.digitalWrite(manualOut, b.LOW);
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   //console.log(err);
-  //console.log(response);
+  console.log(response);
   ledInValue = response.value;
   ledInChangeTime = Date.now();
 });
 
+const startGrinderTimer = function () {
+  setTimeout(() => {
+    grinderRuns -= 1;
+    if (grinderRuns === 0) b.digitalWrite(grinderOut, b.LOW);
+    else startGrinderTimer();
+  }, 10000);
+};
+
 http
   .createServer((req, res) => {
     let statusCode = 200;
-    if (req.url.endsWith("api/push")) {
-      b.digitalWrite(buttonOut, b.HIGH);
+    if (req.url.endsWith("api/push") || req.url.endsWith("api/pushPower")) {
+      b.digitalWrite(powerOut, b.HIGH);
       setTimeout(() => {
-        b.digitalWrite(buttonOut, b.LOW);
+        b.digitalWrite(powerOut, b.LOW);
       }, 200);
+    } else if (req.url.endsWith("api/pushGrinder")) {
+      if (grinderRuns === 0) {
+        b.digitalWrite(grinderOut, b.HIGH);
+        startGrinderTimer();
+      }
+      grinderRuns += 1;
     } else if (req.url.endsWith("api/pushManual")) {
       b.digitalWrite(manualOut, b.HIGH);
       setTimeout(() => {
@@ -56,6 +77,7 @@ http
       JSON.stringify({
         url: req.url,
         value: ledInValue,
+        grinderRuns: grinderRuns,
         age: Date.now() - ledInChangeTime,
       })
     );
