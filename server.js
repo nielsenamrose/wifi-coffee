@@ -54,7 +54,7 @@ const pushButton = function (output) {
 const startGrinderIfReady = function () {
   if (_ready && _grinderRuns > 0) {
     b.digitalWrite(grinderOut, b.HIGH);
-    if (!_grinderStarted || force) {
+    if (!_grinderStarted) {
       setTimeout(() => {
         _grinderRuns > 0 ? _grinderRuns - 1 : 0;
         if (_grinderRuns < 1) stopGrinder();
@@ -83,6 +83,7 @@ http
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder")) {
       _grinderRuns < 5 ? _grinderRuns + 1 : 0;
+      console.log(_grinderRuns);
       startGrinderIfReady();
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {
