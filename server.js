@@ -51,29 +51,35 @@ const pushButton = function (output) {
   }, 200);
 };
 
-const startGrinderIfReady = function (force) {
-  if ((!_grinderStarted || force) && _ready && _grinderRuns > 0) {
+const startGrinderIfReady = function () {
+  if (_ready && _grinderRuns > 0) {
     b.digitalWrite(grinderOut, b.HIGH);
-    _grinderStarted = true;
-    setTimeout(() => {
-      _grinderRuns > 0 ? _grinderRuns - 1 : 0;
-      if (_grinderRuns < 1) stopGrinder();
-      else startGrinderIfReady(true);
-    }, 10000);
+    if (!_grinderStarted || force) {
+      setTimeout(() => {
+        _grinderRuns > 0 ? _grinderRuns - 1 : 0;
+        if (_grinderRuns < 1) stopGrinder();
+        else {
+          _grinderStarted = false;
+          startGrinderIfReady();
+        }
+      }, 10000);
+      _grinderStarted = true;
+    }
   }
 };
 
 const stopGrinder = function () {
   b.digitalWrite(grinderOut, b.LOW);
-  _grinderStarted = false;
-  _grinderRuns = 0;
+  if (_grinderStarted) {
+    _grinderStarted = false;
+    _grinderRuns = 0;
+  }
 };
 
 http
   .createServer((req, res) => {
     let statusCode = 200;
     if (req.url.endsWith("api/pushPower")) {
-      if (_ready || _heating) stopGrinder();
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder")) {
       _grinderRuns < 5 ? _grinderRuns + 1 : 0;
