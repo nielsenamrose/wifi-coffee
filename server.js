@@ -56,13 +56,13 @@ const startGrinderIfReady = function () {
     b.digitalWrite(grinderOut, b.HIGH);
     if (!_grinderStarted) {
       setTimeout(() => {
-        _grinderRuns > 0 ? _grinderRuns - 1 : 0;
+        _grinderRuns = _grinderRuns > 0 ? _grinderRuns - 1 : 0;
         if (_grinderRuns < 1) stopGrinder();
         else {
           _grinderStarted = false;
           startGrinderIfReady();
         }
-      }, 10000);
+      }, 1000);
       _grinderStarted = true;
     }
   }
