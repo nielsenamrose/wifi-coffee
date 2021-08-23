@@ -36,12 +36,12 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   ledInChangeTime = Date.now();
 
   ledInTimer = setTimeout(() => {
-    let old = Date.now() - ledInChangeTime > 750;
+    let old = Date.now() - ledInChangeTime > 600;
     _ready = old && ledInValue == 1;
     _heating = !old;
     if (_ready) startGrinderIfReady();
     else if (!_heating) stopGrinder();
-  }, 750);
+  }, 700);
 });
 
 const pushButton = function (output) {
