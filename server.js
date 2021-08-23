@@ -40,7 +40,7 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
     _ready = old && ledInValue == 1;
     _heating = !old;
     if (_ready) startGrinderIfReady();
-    else if (!_ready || _heating) stopGrinder();
+    else if (!_heating) stopGrinder();
   }, 750);
 });
 
