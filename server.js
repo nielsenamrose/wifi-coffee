@@ -82,7 +82,7 @@ http
     if (req.url.endsWith("api/pushPower")) {
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder")) {
-      _grinderRuns < 5 ? _grinderRuns + 1 : 0;
+      _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
       console.log(_grinderRuns);
       startGrinderIfReady();
     } else if (req.url.endsWith("api/read")) {
