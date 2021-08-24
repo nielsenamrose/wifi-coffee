@@ -81,7 +81,7 @@ http
     let statusCode = 200;
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
-      _heating = !heating && !_ready;
+      _heating = !_heating && !_ready;
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
