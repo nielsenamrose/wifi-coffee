@@ -10,17 +10,19 @@
   <body>
     <img id="background" src="background.jpg"></img>
     <img id="grinder" src="grinder.png"></img>
+    <div id="grinderLabel"></div>
     <div id="circle"></div>    
     <div id="errorMessage"></div>
     <script>
       const img = document.querySelector("#background");
       const grinder = document.querySelector("#grinder"); 
+      const grinderLabel = document.querySelector("#grinderLabel"); 
       const circle = document.querySelector("#circle");
       const errorMessage = document.querySelector("#errorMessage");
       
-      var value = false;
-      var age = undefined;
-      var toggle = true;
+      var heating = false;
+      var ready = false;
+      var grinderRuns = 0;
       var interval = undefined;
 
       updateCircle = function () {
@@ -38,46 +40,36 @@
         circle.style["border-width"] = `${b}px`;
       };
 
-      emitError = function(message) {
-        errorMessage.innerHTML = message;
+      update = function(data) {
+        console.log(data);
+        heating = data.heating,
+        ready = data.ready,
+        grinderRuns = data.grinderRuns;
+        grinderLabel.innerHTML = grinderRuns > 0 ? grinderRuns : "";
+        errorMessage.innerHTML = "";
+        if (!heating) circle.classList.toggle("on", ready);
+      }
+
+      callApi = function(method) {
+        fetch("http://192.168.1.15:8081/api/" + method)
+            .then(response => response.json())
+            .then(data => update(data))
+            .catch(error => errorMessage.innerHTML = `Error: ${error.message}`);
       }
 
       start = function(){
         if (interval) clearInterval(interval);
         interval = setInterval(() => {
-          fetch("http://192.168.1.15:8081/api/read")
-            .then(response => response.json())
-            .then(data => {
-              console.log(data);
-              value = data.value == 1; 
-              age = data.age
-              if (value) toggle = true;
-              if (age >= 1000) circle.classList.toggle("on", value);
-              emitError("");
-            }).catch(error => emitError(`Error: ${error.message}`));
-          if (toggle && age < 1000) circle.classList.toggle("on");
+          callApi("read");
+          if (heating) circle.classList.toggle("on");
         }, 500);
       }
 
       window.addEventListener("resize", updateCircle);
       window.addEventListener("load", updateCircle);
             
-      grinder.addEventListener("click", () => {
-        fetch("http://192.168.1.15:8081/api/pushGrinder")
-          .then(response => {})
-          .catch(error => emitError(`Error: ${error.message}`));
-      });
-
-      circle.addEventListener("click", () => {
-        fetch("http://192.168.1.15:8081/api/pushPower")
-          .then(response => {
-            value = toggle = !value;
-            age = 0;
-            circle.classList.toggle("on", value);
-            start();
-            emitError("");
-          }).catch(error => emitError(`Error: ${error.message}`));
-      });
+      grinder.addEventListener("click", () => callApi("pushGrinder"));
+      circle.addEventListener("click", () => {callApi("pushPower"); start();});
 
       start();
     </script>
