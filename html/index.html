@@ -73,7 +73,7 @@
       window.addEventListener("resize", updateCircle);
       window.addEventListener("load", updateCircle);
             
-      grinder.addEventListener("click", callApi("pushGrinder"));
+      grinder.addEventListener("click", () => callApi("pushGrinder"));
       circle.addEventListener("click", () => {callApi("pushPower"); start();});
 
       start();
