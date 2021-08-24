@@ -37,7 +37,7 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
 
   ledInTimer = setTimeout(() => {
     let old = Date.now() - ledInChangeTime > 600;
-    _ready = old && ledInValue == 1;
+    _ready = old && response.value == 1;
     _heating = !old;
     if (_ready) startGrinderIfReady();
     else if (!_heating) stopGrinder();
@@ -80,10 +80,11 @@ http
   .createServer((req, res) => {
     let statusCode = 200;
     if (req.url.endsWith("api/pushPower")) {
+      _ready = false;
+      _heating = !heating && !_ready;
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
-      console.log(_grinderRuns);
       startGrinderIfReady();
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {

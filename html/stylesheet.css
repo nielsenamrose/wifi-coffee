@@ -19,6 +19,19 @@ body {
   top: 0px;
 }
 
+#grinderLabel {
+  position: absolute;
+  width: 100%;
+  margin-top: 3.5%;
+  top: 0px;
+  color: black;
+  text-align: center;
+  word-wrap: break-word;
+  font-size: 80px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+}
+
 #circle {
   position: absolute;
   border-radius: 50%;
