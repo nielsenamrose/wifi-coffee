@@ -37,8 +37,8 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
 
   ledInTimer = setTimeout(() => {
     let old = Date.now() - ledInChangeTime > 600;
-    _ready = old && response.value == 1;
-    _heating = !old && (_heating || response.value == 1);
+    _ready = old && ledInValue == 1;
+    _heating = !old && (_heating || ledInValue == 1);
     if (_ready) startGrinderIfReady();
     else if (!_heating) stopGrinder();
   }, 700);
