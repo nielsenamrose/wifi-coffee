@@ -62,7 +62,7 @@ const startGrinderIfReady = function () {
           _grinderStarted = false;
           startGrinderIfReady();
         }
-      }, 10000);
+      }, 1000);
       _grinderStarted = true;
     }
   }
