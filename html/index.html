@@ -22,9 +22,8 @@
       
       var heating = false;
       var ready = false;
-      var toggle = true;
-      var interval = undefined;
       var grinderRuns = 0;
+      var interval = undefined;
 
       updateCircle = function () {
         const ratio = img.naturalWidth / img.naturalHeight;
@@ -41,16 +40,12 @@
         circle.style["border-width"] = `${b}px`;
       };
 
-      emitError = function(message) {
-        errorMessage.innerHTML = message;
-      }
-
       update = function(data) {
         console.log(data);
         heating = data.heating,
         ready = data.ready,
         grinderRuns = data.grinderRuns;
-        grinderLabel.innerHTML = grinderRuns;
+        grinderLabel.innerHTML = grinderRuns > 0 ? grinderRuns : "";
         errorMessage.innerHTML = "";
         if (!heating) circle.classList.toggle("on", ready);
       }
@@ -59,7 +54,7 @@
         fetch("http://192.168.1.15:8081/api/" + method)
             .then(response => response.json())
             .then(data => update(data))
-            .catch(error => emitError(`Error: ${error.message}`));
+            .catch(error => errorMessage.innerHTML = `Error: ${error.message}`);
       }
 
       start = function(){
