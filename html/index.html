@@ -11,18 +11,20 @@
     <img id="background" src="background.jpg"></img>
     <img id="grinder" src="grinder.png"></img>
     <div id="grinderLabel"></div>
+    <img id="cup" src="cup.png"></img>
+    <div id="cupLabel"></div>
     <div id="circle"></div>    
     <div id="errorMessage"></div>
     <script>
       const img = document.querySelector("#background");
       const grinder = document.querySelector("#grinder"); 
       const grinderLabel = document.querySelector("#grinderLabel"); 
+      const cup = document.querySelector("#cup"); 
+      const cupLabel = document.querySelector("#cupLabel"); 
       const circle = document.querySelector("#circle");
       const errorMessage = document.querySelector("#errorMessage");
       
       var heating = false;
-      var ready = false;
-      var grinderRuns = 0;
       var interval = undefined;
 
       updateCircle = function () {
@@ -43,11 +45,10 @@
       update = function(data) {
         console.log(data);
         heating = data.heating,
-        ready = data.ready,
-        grinderRuns = data.grinderRuns;
-        grinderLabel.innerHTML = grinderRuns > 0 ? grinderRuns : "";
+        grinderLabel.innerHTML = data.grinderRuns > 0 ? data.grinderRuns : "";
+        cupLabel.innerHTML = data.brewRuns > 0 ? data.brewRuns : "";
         errorMessage.innerHTML = "";
-        if (!heating) circle.classList.toggle("on", ready);
+        if (!heating) circle.classList.toggle("on", data.ready);
       }
 
       callApi = function(method) {
@@ -69,6 +70,7 @@
       window.addEventListener("load", updateCircle);
             
       grinder.addEventListener("click", () => callApi("pushGrinder"));
+      cup.addEventListener("click", () => callApi("incbrewruns"));
       circle.addEventListener("click", () => {callApi("pushPower"); start();});
 
       start();
