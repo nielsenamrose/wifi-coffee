@@ -17,7 +17,7 @@ var ledInTimer = null;
 
 var _heating = false;
 var _ready = false;
-var _proving = provingTime;
+var _proving = true;
 
 var _grinderRuns = 0;
 var _grinderStarted = false;
@@ -40,11 +40,12 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   console.log(response);
   ledInValue = response.value;
   ledInChangeTime = Date.now();
+  _proving = true;
 
   ledInTimer = setTimeout(() => {
-    _proving = Math.max(_provingTime - (Date.now() - ledInChangeTime), 0);
-    _ready = proving == 0 && ledInValue == 1;
-    _heating = proving > 0 && (_heating || ledInValue == 1);
+    _proving = Date.now() - ledInChangeTime < provingTime;
+    _ready = !_proving && ledInValue == 1;
+    _heating = proving && (_heating || ledInValue == 1);
     startGrinderIfReady();
     brewIfReady();
     if (!_ready && !_heating) stopGrinder();
@@ -104,7 +105,7 @@ http
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
       _heating = !_heating && !_ready;
-      _proving = _provingTime;
+      _proving = true;
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder") || req.url.endsWith("api/incgrinderruns")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
@@ -133,7 +134,6 @@ http
         heating: _heating,
         ready: _ready,
         proving: _proving,
-        provingTime: provingTime,
         grinderRuns: _grinderRuns,
         brewRuns: _brewRuns,
       })
