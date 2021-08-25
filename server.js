@@ -9,12 +9,15 @@ const grinderOut = "P9_25";
 
 const ledIn = "P9_41";
 
+const provingTime = 600;
+
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
 var ledInTimer = null;
 
 var _heating = false;
 var _ready = false;
+var _proving = provingTime;
 
 var _grinderRuns = 0;
 var _grinderStarted = false;
@@ -39,14 +42,13 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   ledInChangeTime = Date.now();
 
   ledInTimer = setTimeout(() => {
-    let old = Date.now() - ledInChangeTime > 600;
-    _ready = old && ledInValue == 1;
-    _heating = !old && (_heating || ledInValue == 1);
-    if (_ready) {
-      startGrinderIfReady();
-      brewIfReady();
-    } else if (!_heating) stopGrinder();
-  }, 700);
+    _proving = Math.max(_provingTime - (Date.now() - ledInChangeTime), 0);
+    _ready = proving == 0 && ledInValue == 1;
+    _heating = proving > 0 && (_heating || ledInValue == 1);
+    startGrinderIfReady();
+    brewIfReady();
+    if (!_ready && !_heating) stopGrinder();
+  }, provingTime + 100);
 });
 
 const pushButton = function (output) {
@@ -102,8 +104,9 @@ http
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
       _heating = !_heating && !_ready;
+      _proving = _provingTime;
       pushButton(powerOut);
-    } else if (req.url.endsWith("api/pushGrinder")) {
+    } else if (req.url.endsWith("api/pushGrinder") || req.url.endsWith("api/incgrinderruns")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
       startGrinderIfReady();
     } else if (req.url.endsWith("api/incbrewruns")) {
@@ -129,6 +132,8 @@ http
         url: req.url,
         heating: _heating,
         ready: _ready,
+        proving: _proving,
+        provingTime: provingTime,
         grinderRuns: _grinderRuns,
         brewRuns: _brewRuns,
       })
