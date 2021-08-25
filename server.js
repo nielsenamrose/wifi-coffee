@@ -45,7 +45,7 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   ledInTimer = setTimeout(() => {
     _proving = Date.now() - ledInChangeTime < provingTime;
     _ready = !_proving && ledInValue == 1;
-    _heating = proving && (_heating || ledInValue == 1);
+    _heating = _proving && (_heating || ledInValue == 1);
     startGrinderIfReady();
     brewIfReady();
     if (!_ready && !_heating) stopGrinder();
