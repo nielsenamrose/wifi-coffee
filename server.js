@@ -70,7 +70,7 @@ const startGrinderIfReady = function () {
           _grinderStarted = false;
           startGrinderIfReady();
         }
-      }, 10000);
+      }, 11000);
       _grinderStarted = true;
     }
   }
@@ -95,7 +95,7 @@ const brewIfReady = function () {
         _brewRuns = _brewRuns > 0 ? _brewRuns - 1 : 0;
       }
       brewIfReady();
-    }, 25000);
+    }, 40000);
   }
 };
 

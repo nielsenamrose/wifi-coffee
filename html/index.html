@@ -27,7 +27,7 @@
       var heating = false;
       var interval = undefined;
 
-      updateCircle = function () {
+      updateStyles = function () {
         const ratio = img.naturalWidth / img.naturalHeight;
         var width = img.height * ratio;
         if (width > img.width) {
@@ -40,9 +40,21 @@
         circle.style.height = `${2 * r}px`;
         circle.style.transform = `translate(${img.width / 2 - r - b}px, ${img.height / 2 - r - b}px)`;
         circle.style["border-width"] = `${b}px`;
+        cup.style["height"] = `${1.0 * r}px`;
+        cup.style["margin-right"] = `${0.5 * r}px`;
+        cup.style["margin-bottom"] = `${1.9 * r}px`;
+        cupLabel.style["font-size"] = `${0.4 * r}px`;
+        cupLabel.style["margin-right"] = `${0.88 * r}px`;
+        cupLabel.style["margin-bottom"] = `${1.4 * r}px`;
+        grinder.style["height"] = `${1.5 * r}px`;
+        grinder.style["margin-left"] = `${0.25 * r}px`;
+        grinder.style["margin-bottom"] = `${1.8 * r}px`;
+        grinderLabel.style["font-size"] = `${0.4 * r}px`;
+        grinderLabel.style["margin-left"] = `${0.88 * r}px`;
+        grinderLabel.style["margin-bottom"] = `${1.4 * r}px`;
       };
 
-      update = function(data) {
+      updateData = function(data) {
         console.log(data);
         heating = data.heating,
         grinderLabel.innerHTML = data.grinderRuns > 0 ? data.grinderRuns : "";
@@ -54,7 +66,7 @@
       callApi = function(method) {
         fetch("http://192.168.1.15:8081/api/" + method)
             .then(response => response.json())
-            .then(data => update(data))
+            .then(data => updateData(data))
             .catch(error => errorMessage.innerHTML = `Error: ${error.message}`);
       }
 
@@ -66,10 +78,10 @@
         }, 500);
       }
 
-      window.addEventListener("resize", updateCircle);
-      window.addEventListener("load", updateCircle);
+      window.addEventListener("resize", updateStyles);
+      window.addEventListener("load", updateStyles);
             
-      grinder.addEventListener("click", () => callApi("pushGrinder"));
+      grinder.addEventListener("click", () => callApi("incgrinderruns"));
       cup.addEventListener("click", () => callApi("incbrewruns"));
       circle.addEventListener("click", () => {callApi("pushPower"); start();});
 

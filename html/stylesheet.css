@@ -10,44 +10,34 @@ body {
   object-fit: contain;
 }
 
-#grinder {
-  position: absolute;
-  height: 25%;
-  object-fit: contain;
-  margin-top: 2%;
-  margin-left: 0%;
-  margin-right: 100%;
-  top: 0px;
-}
-
-#grinderLabel {
-  position: absolute;
-  margin-left: 20%;
-  margin-top: 45%;
-  text-align: center;
-  font-size: 100px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bolder;
-}
-
 #cup {
   position: absolute;
-  height: 15%;
   object-fit: contain;
-  margin-top: 17%;
-  margin-left: 60%;
-  margin-right: 40%;
+  right: 50%;
+  bottom: 50%;
 }
 
 #cupLabel {
   position: absolute;
-  margin-left: 80%;
-  margin-top: 45%;
-  text-align: center;
-  font-size: 100px;
+  right: 50%;
+  bottom: 50%;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bolder;
-  transform: translate(200px);
+}
+
+#grinder {
+  position: absolute;
+  object-fit: contain;
+  left: 50%;
+  bottom: 50%;
+}
+
+#grinderLabel {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
 }
 
 #circle {
