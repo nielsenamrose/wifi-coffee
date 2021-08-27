@@ -9,15 +9,21 @@ const grinderOut = "P9_25";
 
 const ledIn = "P9_41";
 
+const provingTime = 600;
+
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
 var ledInTimer = null;
 
 var _heating = false;
 var _ready = false;
+var _proving = true;
 
 var _grinderRuns = 0;
 var _grinderStarted = false;
+
+var _brewRuns = 0;
+var _isBrewing = false;
 
 b.pinMode(powerOut, b.OUTPUT);
 b.digitalWrite(powerOut, b.LOW);
@@ -34,14 +40,16 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   console.log(response);
   ledInValue = response.value;
   ledInChangeTime = Date.now();
+  _proving = true;
 
   ledInTimer = setTimeout(() => {
-    let old = Date.now() - ledInChangeTime > 600;
-    _ready = old && ledInValue == 1;
-    _heating = !old && (_heating || ledInValue == 1);
-    if (_ready) startGrinderIfReady();
-    else if (!_heating) stopGrinder();
-  }, 700);
+    _proving = Date.now() - ledInChangeTime < provingTime;
+    _ready = !_proving && ledInValue == 1;
+    _heating = _proving && (_heating || ledInValue == 1);
+    startGrinderIfReady();
+    brewIfReady();
+    if (!_ready && !_heating) stopGrinder();
+  }, provingTime + 100);
 });
 
 const pushButton = function (output) {
@@ -62,7 +70,7 @@ const startGrinderIfReady = function () {
           _grinderStarted = false;
           startGrinderIfReady();
         }
-      }, 10000);
+      }, 11000);
       _grinderStarted = true;
     }
   }
@@ -76,16 +84,35 @@ const stopGrinder = function () {
   }
 };
 
+const brewIfReady = function () {
+  if (_ready && _brewRuns > 0 && !_isBrewing) {
+    pushButton(manualOut);
+    _isBrewing = true;
+    setTimeout(() => {
+      if (_isBrewing) {
+        pushButton(manualOut);
+        _isBrewing = false;
+        _brewRuns = _brewRuns > 0 ? _brewRuns - 1 : 0;
+      }
+      brewIfReady();
+    }, 40000);
+  }
+};
+
 http
   .createServer((req, res) => {
     let statusCode = 200;
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
       _heating = !_heating && !_ready;
+      _proving = true;
       pushButton(powerOut);
-    } else if (req.url.endsWith("api/pushGrinder")) {
+    } else if (req.url.endsWith("api/pushGrinder") || req.url.endsWith("api/incgrinderruns")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
       startGrinderIfReady();
+    } else if (req.url.endsWith("api/incbrewruns")) {
+      _brewRuns = _brewRuns < 2 ? _brewRuns + 1 : 0;
+      brewIfReady();
     } else if (req.url.endsWith("api/read")) {
     } else if (req.url.endsWith("api/kill")) {
       setTimeout(() => {
@@ -106,7 +133,9 @@ http
         url: req.url,
         heating: _heating,
         ready: _ready,
+        proving: _proving,
         grinderRuns: _grinderRuns,
+        brewRuns: _brewRuns,
       })
     );
   })
