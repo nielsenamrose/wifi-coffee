@@ -45,7 +45,6 @@ Clone repository and copy files to default locations for NGinx web server and Cl
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
-$ sudo mkdir /var/www/http
 $ sudo cp html /var/www/ -r
 $ sudo cp server.js /var/lib/cloud9/autorun/
 ```
