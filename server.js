@@ -94,7 +94,7 @@ const brewIfReady = function () {
         _isBrewing = false;
         _brewRuns = _brewRuns > 0 ? _brewRuns - 1 : 0;
       }
-      brewIfReady();
+      setTimeout(brewIfReady, 200);
     }, 40000);
   }
 };
