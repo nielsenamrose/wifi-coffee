@@ -1,1 +1,6 @@
-
+![](power%20panel.JPG)
+![](power%20panel%pcb.JPG)
+![](brew%20panel%20pcb.JPG)
+![](grinder.JPG)
+![](grinder%20relays.JPG)
+![](bread%20board)
