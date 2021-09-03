@@ -3,4 +3,4 @@
 ![](brew%20panel%20pcb.JPG)
 ![](grinder.JPG)
 ![](grinder%20relays.JPG)
-![](bread%20board)
+![](bread%20board.JPG)
