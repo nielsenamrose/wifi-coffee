@@ -8,9 +8,7 @@ The solution consists of two software components:
 
 The screenshot show the user interface. The machine is on and heating up. When the machine is ready, the grinder will grind enough grounds for one cup of coffee. 
 
-## Hardware setup
-
-I am using the BeagleBone Green Wireless. Just because I still have a couple of them laying around from another project.
+## Install software
 
 ### Flashing the BBGW
 
@@ -37,8 +35,6 @@ connmanctl> quit
 ```
 
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
-
-## Install software
 
 Install required Epoll node module
 ```
