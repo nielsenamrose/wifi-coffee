@@ -1,8 +1,8 @@
 # Hardware
 
-- **Coffee machine:** Breville BES920 Dual Boiler
-- **Grinder:** Mazzer Mini Manual Grinder
-- **Single board computer:** Beagle Bone Green Wireless
+- Coffee machine: **Breville BES920 Dual Boiler**
+- Grinder: **Mazzer Mini Manual Grinder**
+- Single board computer: **BeagleBone Green Wireless**
 
 ![](power%20panel.JPG)
 ![](power%20panel%pcb.JPG)
