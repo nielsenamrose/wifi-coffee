@@ -1,5 +1,11 @@
 # Wi-Fi enabled coffee machine
 
+## Hardware
+
+See section on [hardware hacking](/hardware).
+
+## Software
+
 The solution consists of two software components:
 1. A web service implemented using Node.js and [BoneScript](https://beagleboard.org/Support/BoneScript/) listing on port 8081.
 2. A static web page served up by the preinstalled Nginx webserver listening on port 8080.
@@ -7,8 +13,6 @@ The solution consists of two software components:
 ![iPhone screenshot](screenshot.PNG)
 
 The screenshot show the user interface. The machine is on and heating up. When the machine is ready, the grinder will grind enough grounds for one cup of coffee. 
-
-## Install software
 
 ### Flashing the BBGW
 
