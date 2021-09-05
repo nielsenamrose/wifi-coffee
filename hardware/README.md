@@ -25,6 +25,10 @@ We will read the following inputs
 - Coffee machine power LED
 - Coffee machine "manual" brew button LED
 
+### Schematics
+
+![](switch%20output.jpg)
+![](led%20input.jpg)
 
 
 ## Intallation
