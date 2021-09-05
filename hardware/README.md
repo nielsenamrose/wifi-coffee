@@ -27,7 +27,16 @@ We will read the following inputs
 
 ### Schematics
 
+#### Output circuit
+
+WE use a NPN transistor as an electronic switch. We connect the transistor parallel to the physical switch in the coffee machine.
+
 ![](switch%20output.jpg)
+
+#### Input circuit
+
+The LED in the coffee machine has a current limiting resistor. We will detect current through the resistor by connecting it to the input of an optocouple.
+
 ![](led%20input.jpg)
 
 
