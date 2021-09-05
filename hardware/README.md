@@ -18,8 +18,6 @@ We will controll the following
 - Coffee machine "manual" brew button
 - Grinder ON/OFF button
 
-The added electronics will be connected in parallel to the physical buttons to allow both manual and remote operation.
-
 We will read the following inputs
 
 - Coffee machine power LED
@@ -27,18 +25,19 @@ We will read the following inputs
 
 ### Schematics
 
-#### Output circuit
+#### Button circuit
 
-We use a NPN transistor as an electronic switch. We connect the transistor parallel to the physical switch in the coffee machine.
+We use a NPN transistor as an electronic switch. We connect the transistor parallel to the physical switch in the coffee machine to allow both manual and remote operation.
 
 ![](switch%20output.jpg)
 
-#### Input circuit
+#### Grinder ON/OFF relays
+
+#### LED input circuit
 
 The LED in the coffee machine has a current limiting resistor. We will detect current through the resistor by connecting it to the input of an optocouple. Note that the cathode  of the LED is not connected to ground and the circuitry in the coffee machine is unknown, hence why we use the optocoupler.
 
 ![](led%20input.jpg)
-
 
 ## Intallation
 
