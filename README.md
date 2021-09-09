@@ -40,12 +40,12 @@ connmanctl> quit
 
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
-Install required Epoll node module
+### Install required Epoll node module
 ```
 sudo npm install -g epoll --unsafe-perm=true --allow-root
 ```
 
-Clone repository and copy files to default locations for NGinx web server and Cloud9 autorun:
+### Clone repository and copy files to default locations for NGinx web server and Cloud9 autorun:
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
