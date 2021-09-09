@@ -3,8 +3,8 @@
 const http = require("http");
 const b = require("bonescript");
 
-const powerOut = "P9_15";
-const manualOut = "P9_23";
+const powerOut = "P9_23";
+const manualOut = "P9_15";
 const grinderOut = "P9_25";
 
 const ledIn = "P9_41";
