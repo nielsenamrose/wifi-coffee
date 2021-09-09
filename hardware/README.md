@@ -21,7 +21,6 @@ We will controll the following
 We will read the following inputs
 
 - Coffee machine power LED
-- Coffee machine "manual" brew button LED
 
 ### Schematics
 
@@ -47,3 +46,8 @@ The LED in the coffee machine has a current limiting resistor. We will detect cu
 ![](grinder.JPG)
 ![](grinder%20relays.JPG)
 ![](bread%20board.JPG)
+![](pcb.JPG)
+![](enclosure.JPG)
+
+And finally everything is neatly put back together
+![](done.JPG)
