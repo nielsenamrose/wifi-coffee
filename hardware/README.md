@@ -43,10 +43,20 @@ The LED in the coffee machine has a current limiting resistor. We will detect cu
 ![](power%20panel.JPG)
 ![](power%20panel%20pcb.JPG)
 ![](brew%20panel%20pcb.JPG)
+
+Grinder innards.
 ![](grinder.JPG)
+
+Grinder innards with relays mounted.
 ![](grinder%20relays.JPG)
+
+Bread board used for testing.
 ![](bread%20board.JPG)
+
+Electronics placed on a pcb designed as a BeagleBone cape. The left 2x5 connector is just added for stability.
 ![](pcb.JPG)
+
+The cape mounted on the BeagleBone and placed in the enclosure.
 ![](enclosure.JPG)
 
 And finally everything is neatly put back together
