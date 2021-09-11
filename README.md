@@ -8,7 +8,7 @@ The screenshot show the user interface. The machine is on and heating up. When t
 
 ## Hardware
 
-See section on [hardware hacking](/hardware).
+See section on [hardware hacking](/hardware/README.md).
 
 ## Software
 
