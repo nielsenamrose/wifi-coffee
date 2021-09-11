@@ -12,7 +12,7 @@ The setup consists of the following components:
 
 ## Controller
 
-We will controll the following 
+We will controll the following
 
 - Coffee machine power button
 - Coffee machine "manual" brew button
@@ -28,35 +28,35 @@ We will read the following inputs
 
 We use a NPN transistor as an electronic switch. We connect the transistor parallel to the physical switch in the coffee machine to allow both manual and remote operation.
 
-![](switch%20output.jpg)
+![](switch-output.jpg)
 
 #### Grinder ON/OFF relays
 
 #### LED input circuit
 
-The LED in the coffee machine has a current limiting resistor. We will detect current through the resistor by connecting it to the input of an optocoupler. Note that the cathode  of the LED is not connected to ground and the circuitry in the coffee machine is unknown, hence why we use the optocoupler.
+The LED in the coffee machine has a current limiting resistor. We will detect current through the resistor by connecting it to the input of an optocoupler. Note that the cathode of the LED is not connected to ground and the circuitry in the coffee machine is unknown, hence why we use the optocoupler.
 
-![](led%20input.jpg)
+![](led-input.jpg)
 
 ## Intallation
 
 The power panel.
-![](power%20panel.JPG)
+![](power-panel.JPG)
 
 The power panel pcb with wires connected across the switch and across the current limiting resistor of the LED.
-![](power%20panel%20pcb.JPG)
+![](power-panel%20pcb.JPG)
 
 The brew panel pcb with wires connected across the switch and across the current limiting resistor of the LED.
-![](brew%20panel%20pcb.JPG)
+![](brew-panel%20pcb.JPG)
 
 Grinder innards.
 ![](grinder.JPG)
 
 Grinder innards with relays mounted.
-![](grinder%20relays.JPG)
+![](grinder-relays.JPG)
 
 Bread board used for testing.
-![](bread%20board.JPG)
+![](bread-board.JPG)
 
 Electronics placed on a pcb designed as a BeagleBone cape. The left 2x5 connector is just added for stability.
 ![](pcb.JPG)
