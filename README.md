@@ -1,5 +1,7 @@
 # Wi-Fi enabled coffee machine
 
+
+
 ![iPhone screenshot](screenshot.PNG)
 
 The screenshot show the user interface. The machine is on and heating up. When the machine is ready, the grinder will grind enough grounds for one cup of coffee. 
@@ -40,15 +42,20 @@ connmanctl> quit
 
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
-### Install required Epoll node module
+### Install my software
+
+Install required Epoll node module
 ```
 $ sudo npm install -g epoll --unsafe-perm=true --allow-root
 ```
-
-### Clone repository and copy files to default locations for NGinx web server and Cloud9 autorun:
+Clone repository and copy files to default locations for NGinx web server and Cloud9 autorun:
 ```
 $ git clone https://github.com/nielsenamrose/wifi-coffee.git
 $ cd wifi-coffee
 $ sudo cp html /var/www/ -r
 $ sudo cp server.js /var/lib/cloud9/autorun/
 ```
+
+## Future improvements
+
+As a future improvement I would like to show a total count of cups brewed. In order to count cups brewed using the web app and cups brewed using manual button presses, I will need to connect the wires from the manual brew button to a digital input via a level shifting circuit.
