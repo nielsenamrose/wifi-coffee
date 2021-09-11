@@ -44,10 +44,10 @@ The power panel.
 ![](power-panel.JPG)
 
 The power panel pcb with wires connected across the switch and across the current limiting resistor of the LED.
-![](power-panel%20pcb.JPG)
+![](power-panel-pcb.JPG)
 
 The brew panel pcb with wires connected across the switch and across the current limiting resistor of the LED.
-![](brew-panel%20pcb.JPG)
+![](brew-panel-pcb.JPG)
 
 Grinder innards.
 ![](grinder.JPG)
