@@ -42,7 +42,7 @@ connmanctl> quit
 
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
-### Install my software
+### Install software
 
 Install required Epoll node module
 ```
