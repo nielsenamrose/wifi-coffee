@@ -1,7 +1,6 @@
 # Wi-Fi enabled coffee machine
 
 
-
 ![iPhone screenshot](screenshot.PNG)
 
 The screenshot show the user interface. The machine is on and heating up. When the machine is ready, the grinder will grind enough grounds for one cup of coffee. 
@@ -58,4 +57,4 @@ $ sudo cp server.js /var/lib/cloud9/autorun/
 
 ## Future improvements
 
-As a future improvement I would like to show a total count of cups brewed. In order to count cups brewed using the web app and cups brewed using manual button presses, I will need to connect the wires from the manual brew button to a digital input via a level shifting circuit.
+As a future improvement I would like to show a total count of cups brewed. The count should include cups brewed using the app and cups brewed by manually pressing the button on the machine. If the server can know when the machine is brewing, that would also allow the software to correctly handle the case, where brewing is initiated from the app but interrupted by a button press on the machine.
