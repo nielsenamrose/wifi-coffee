@@ -10,6 +10,8 @@ const grinderOut = "P9_25";
 const ledIn = "P9_41";
 
 const provingTime = 600;
+const GRIND_TIME = 12000;
+const BREW_TIME = 40000;
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
@@ -70,7 +72,7 @@ const startGrinderIfReady = function () {
           _grinderStarted = false;
           startGrinderIfReady();
         }
-      }, 11000);
+      }, GRIND_TIME);
       _grinderStarted = true;
     }
   }
@@ -95,7 +97,7 @@ const brewIfReady = function () {
         _brewRuns = _brewRuns > 0 ? _brewRuns - 1 : 0;
       }
       setTimeout(brewIfReady, 500);
-    }, 40000);
+    }, BREW_TIME);
   }
 };
 
