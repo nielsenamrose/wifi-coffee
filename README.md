@@ -43,7 +43,7 @@ Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
 ### Automatic reboot at 3am
 
-Edit the trontab jobs
+Edit the crontab jobs
 ```
 $ sudo crontab -e
 ```
