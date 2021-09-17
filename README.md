@@ -45,7 +45,7 @@ Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
 Edit the trontab jobs
 ```
-sudo crontab -e
+$ sudo crontab -e
 ```
 Add the schedule
 ```
@@ -68,4 +68,4 @@ $ sudo cp server.js /var/lib/cloud9/autorun/
 
 ## Future improvements
 
-As a future improvement I would like to show a total count of cups brewed. The count should include cups brewed using the app and cups brewed by manually pressing the button on the machine. If the server can know when the machine is brewing, that would also allow the software to correctly handle the case, where brewing is initiated from the app but interrupted by a button press on the machine.
+As a future improvement I would like to show a total number of cups brewed. The count should include cups brewed using the app and cups brewed by manually pressing the button on the machine. If the server can reliably detect when the machine is brewing, that would also allow the software to correctly handle the case, where brewing is initiated from the app but interrupted by a manual button press on the machine.
