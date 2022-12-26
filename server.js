@@ -12,7 +12,6 @@ const ledIn = "P9_41";
 const provingTime = 600;
 const GRIND_TIME = 12000;
 const BREW_TIME = 40000;
-const AUTO_OFF_TIME = 300000;
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
@@ -28,8 +27,6 @@ var _grinderStarted = false;
 var _brewRuns = 0;
 var _isBrewing = false;
 
-var _autoOffTimer = null;
-
 b.pinMode(powerOut, b.OUTPUT);
 b.digitalWrite(powerOut, b.LOW);
 
@@ -40,7 +37,6 @@ b.pinMode(manualOut, b.OUTPUT);
 b.digitalWrite(manualOut, b.LOW);
 
 b.pinMode(ledIn, b.INPUT);
-
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   //console.log(err);
   console.log(response);
@@ -54,7 +50,6 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
     _heating = _proving && (_heating || ledInValue == 1);
     startGrinderIfReady();
     brewIfReady();
-    resetAutoOffTimer();
     if (!_ready && !_heating) stopGrinder();
   }, provingTime + 100);
 });
@@ -94,7 +89,6 @@ const stopGrinder = function () {
 const brewIfReady = function () {
   if (_ready && _brewRuns > 0 && !_isBrewing) {
     pushButton(manualOut);
-    resetAutoOffTimer();
     _isBrewing = true;
     setTimeout(() => {
       if (_isBrewing) {
@@ -106,13 +100,6 @@ const brewIfReady = function () {
     }, BREW_TIME);
   }
 };
-
-const resetAutoOffTimer = function() {
-  if (_autoOffTimer !== null){
-    clearTimeout(_autoOffTimer)
-  }
-  _autoOffTimer = setTimeout(() => pushButton(powerOut), AUTO_OFF_TIME);
-}
 
 http
   .createServer((req, res) => {
