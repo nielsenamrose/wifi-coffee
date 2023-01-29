@@ -3,20 +3,20 @@
 const http = require("http");
 const b = require("bonescript");
 
-const powerOut = "P9_23";
-const manualOut = "P9_15";
-const grinderOut = "P9_25";
+const POWER_OUTPUT_PIN = "P9_23";
+const MANUAL_OUTPUT_PIN = "P9_15";
+const GRINDER_OUTPUT_PIN = "P9_25";
 
-const ledIn = "P9_41";
+const LED_INPUT_PIN = "P9_41";
 
-const provingTime = 600;
+const PROVING_TIME = 600;
 const GRIND_TIME = 12000;
 const BREW_TIME = 40000;
 const AUTO_OFF_TIME = 300000;
 
-var ledInValue = 0;
-var ledInChangeTime = Date.now();
-var ledInTimer = null;
+var _ledInValue = 0;
+var _ledInChangeTime = Date.now();
+var _ledInTimer = null;
 
 var _heating = false;
 var _ready = false;
@@ -31,34 +31,34 @@ var _isBrewing = false;
 var _offTimer = null;
 var _offTimerStartTime = -1
 
-b.pinMode(powerOut, b.OUTPUT);
-b.digitalWrite(powerOut, b.LOW);
+b.pinMode(POWER_OUTPUT_PIN, b.OUTPUT);
+b.digitalWrite(POWER_OUTPUT_PIN, b.LOW);
 
-b.pinMode(grinderOut, b.OUTPUT);
-b.digitalWrite(grinderOut, b.LOW);
+b.pinMode(GRINDER_OUTPUT_PIN, b.OUTPUT);
+b.digitalWrite(GRINDER_OUTPUT_PIN, b.LOW);
 
-b.pinMode(manualOut, b.OUTPUT);
-b.digitalWrite(manualOut, b.LOW);
+b.pinMode(MANUAL_OUTPUT_PIN, b.OUTPUT);
+b.digitalWrite(MANUAL_OUTPUT_PIN, b.LOW);
 
-b.pinMode(ledIn, b.INPUT);
-b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
+b.pinMode(LED_INPUT_PIN, b.INPUT);
+b.attachInterrupt(LED_INPUT_PIN, true, b.CHANGE, (err, response) => {
   //console.log(err);
-  if (response.value === ledInValue) return;
-  console.log(response);
-  ledInValue = response.value;
-  ledInChangeTime = Date.now();
+  //console.log(response);
+  if (response.value === _ledInValue) return;
+  _ledInValue = response.value;
+  _ledInChangeTime = Date.now();
   _proving = true;
 
-  ledInTimer = setTimeout(() => {
-    _proving = Date.now() - ledInChangeTime < provingTime;
-    _ready = !_proving && ledInValue == 1;
-    _heating = _proving && (_heating || ledInValue == 1);
+  _ledInTimer = setTimeout(() => {
+    _proving = Date.now() - _ledInChangeTime < PROVING_TIME;
+    _ready = !_proving && _ledInValue == 1;
+    _heating = _proving && (_heating || _ledInValue == 1);
     startGrinderIfReady();
     brewIfReady();
     if (!_ready && !_heating) stopGrinder();
     if (_ready && _offTimerStartTime < 0) startOffTimer();
     if (!_ready && !_heating && !_proving && _offTimerStartTime > 0) stopOffTimer();
-  }, provingTime + 100);
+  }, PROVING_TIME + 100);
 });
 
 const pushButton = function (output) {
@@ -70,7 +70,7 @@ const pushButton = function (output) {
 
 const startGrinderIfReady = function () {
   if (_ready && _grinderRuns > 0) {
-    b.digitalWrite(grinderOut, b.HIGH);
+    b.digitalWrite(GRINDER_OUTPUT_PIN, b.HIGH);
     if (!_grinderStarted) {
       setTimeout(() => {
         _grinderRuns = _grinderRuns > 0 ? _grinderRuns - 1 : 0;
@@ -86,7 +86,7 @@ const startGrinderIfReady = function () {
 };
 
 const stopGrinder = function () {
-  b.digitalWrite(grinderOut, b.LOW);
+  b.digitalWrite(GRINDER_OUTPUT_PIN, b.LOW);
   if (_grinderStarted) {
     _grinderStarted = false;
     _grinderRuns = 0;
@@ -95,11 +95,11 @@ const stopGrinder = function () {
 
 const brewIfReady = function () {
   if (_ready && _brewRuns > 0 && !_isBrewing) {
-    pushButton(manualOut);
+    pushButton(MANUAL_OUTPUT_PIN);
     _isBrewing = true;
     setTimeout(() => {
       if (_isBrewing) {
-        pushButton(manualOut);
+        pushButton(MANUAL_OUTPUT_PIN);
         _isBrewing = false;
         _brewRuns = _brewRuns > 0 ? _brewRuns - 1 : 0;
       }
@@ -124,7 +124,7 @@ const getOffTimerRemaining = function() {
 
 const turnOff = function() {
   _offTimerStartTime = -1;
-  pushButton(powerOut);
+  pushButton(POWER_OUTPUT_PIN);
 }
 
 http
@@ -133,7 +133,7 @@ http
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
       _heating = !_heating;
-      pushButton(powerOut);
+      pushButton(POWER_OUTPUT_PIN);
     } else if (req.url.endsWith("api/pushGrinder") || req.url.endsWith("api/incgrinderruns")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
       startGrinderIfReady();
