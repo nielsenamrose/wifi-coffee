@@ -65,7 +65,7 @@
         grinderLabel.innerHTML = data.grinderRuns > 0 ? data.grinderRuns : "";
         cupLabel.innerHTML = data.brewRuns > 0 ? data.brewRuns : "";
         errorMessage.innerHTML = "";
-        timeoutLabel.innerHTML = Math.ceil(data.offTimer/1000) +"s"
+        timeoutLabel.innerHTML = data.offTimer > 0 ? `Auto off in ${Math.ceil(data.offTimer/1000)}s` : "";
         if (!heating) circle.classList.toggle("on", data.ready);
       }
 

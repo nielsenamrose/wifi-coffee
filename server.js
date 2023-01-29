@@ -12,6 +12,7 @@ const ledIn = "P9_41";
 const provingTime = 600;
 const GRIND_TIME = 12000;
 const BREW_TIME = 40000;
+const AUTO_OFF_TIME = 300000;
 
 var ledInValue = 0;
 var ledInChangeTime = Date.now();
@@ -27,6 +28,9 @@ var _grinderStarted = false;
 var _brewRuns = 0;
 var _isBrewing = false;
 
+var _offTimer = null;
+var _offTimerStartTime = -1
+
 b.pinMode(powerOut, b.OUTPUT);
 b.digitalWrite(powerOut, b.LOW);
 
@@ -39,6 +43,7 @@ b.digitalWrite(manualOut, b.LOW);
 b.pinMode(ledIn, b.INPUT);
 b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
   //console.log(err);
+  if (response.value === ledInValue) return;
   console.log(response);
   ledInValue = response.value;
   ledInChangeTime = Date.now();
@@ -51,6 +56,8 @@ b.attachInterrupt(ledIn, true, b.CHANGE, (err, response) => {
     startGrinderIfReady();
     brewIfReady();
     if (!_ready && !_heating) stopGrinder();
+    if (_ready && _offTimerStartTime < 0) startOffTimer();
+    if (!_ready && !_heating && !_proving && _offTimerStartTime > 0) stopOffTimer();
   }, provingTime + 100);
 });
 
@@ -101,13 +108,31 @@ const brewIfReady = function () {
   }
 };
 
+const startOffTimer = function() {
+  _offTimer = setTimeout(turnOff, AUTO_OFF_TIME);
+  _offTimerStartTime = Date.now();
+}
+
+const stopOffTimer = function() {
+  clearTimeout(_offTimer);
+  _offTimerStartTime = -1;
+}
+
+const getOffTimerRemaining = function() {
+  return _offTimerStartTime > 0 ? _offTimerStartTime + AUTO_OFF_TIME - Date.now() : 0;
+}
+
+const turnOff = function() {
+  _offTimerStartTime = -1;
+  pushButton(powerOut);
+}
+
 http
   .createServer((req, res) => {
     let statusCode = 200;
     if (req.url.endsWith("api/pushPower")) {
       _ready = false;
-      _heating = !_heating && !_ready;
-      _proving = true;
+      _heating = !_heating;
       pushButton(powerOut);
     } else if (req.url.endsWith("api/pushGrinder") || req.url.endsWith("api/incgrinderruns")) {
       _grinderRuns = _grinderRuns < 5 ? _grinderRuns + 1 : 0;
@@ -138,6 +163,7 @@ http
         proving: _proving,
         grinderRuns: _grinderRuns,
         brewRuns: _brewRuns,
+        offTimer: getOffTimerRemaining() 
       })
     );
   })
