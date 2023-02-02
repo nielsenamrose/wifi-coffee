@@ -13,7 +13,8 @@
     <div id="grinderLabel"></div>
     <img id="cup" src="cup.png"></img>
     <div id="cupLabel"></div>
-    <div id="circle"></div>    
+    <div id="circle"></div> 
+    <div id="timeoutLabel"></div>
     <div id="errorMessage"></div>
     <script>
       const img = document.querySelector("#background");
@@ -22,6 +23,7 @@
       const cup = document.querySelector("#cup"); 
       const cupLabel = document.querySelector("#cupLabel"); 
       const circle = document.querySelector("#circle");
+      const timeoutLabel = document.querySelector("#timeoutLabel");
       const errorMessage = document.querySelector("#errorMessage");
       
       var heating = false;
@@ -52,6 +54,9 @@
         grinderLabel.style["font-size"] = `${0.4 * r}px`;
         grinderLabel.style["margin-left"] = `${0.88 * r}px`;
         grinderLabel.style["margin-bottom"] = `${1.4 * r}px`;
+        timeoutLabel.style["font-size"] = `${0.4 * r}px`;
+        //timeoutLabel.style["margin-left"] = `${0.88 * r}px`;
+        timeoutLabel.style["margin-bottom"] = `${-3 * r}px`;
       };
 
       updateData = function(data) {
@@ -60,6 +65,7 @@
         grinderLabel.innerHTML = data.grinderRuns > 0 ? data.grinderRuns : "";
         cupLabel.innerHTML = data.brewRuns > 0 ? data.brewRuns : "";
         errorMessage.innerHTML = "";
+        timeoutLabel.innerHTML = data.offTimer > 0 ? `Auto off in ${Math.ceil(data.offTimer/1000)}s` : "";
         if (!heating) circle.classList.toggle("on", data.ready);
       }
 
