@@ -54,9 +54,9 @@
         grinderLabel.style["font-size"] = `${0.4 * r}px`;
         grinderLabel.style["margin-left"] = `${0.88 * r}px`;
         grinderLabel.style["margin-bottom"] = `${1.4 * r}px`;
-        timeoutLabel.style["font-size"] = `${0.4 * r}px`;
+        timeoutLabel.style["font-size"] = `${0.35 * r}px`;
         //timeoutLabel.style["margin-left"] = `${0.88 * r}px`;
-        timeoutLabel.style["margin-bottom"] = `${-3 * r}px`;
+        timeoutLabel.style["margin-bottom"] = `${-2.8 * r}px`;
       };
 
       updateData = function(data) {
@@ -65,7 +65,7 @@
         grinderLabel.innerHTML = data.grinderRuns > 0 ? data.grinderRuns : "";
         cupLabel.innerHTML = data.brewRuns > 0 ? data.brewRuns : "";
         errorMessage.innerHTML = "";
-        timeoutLabel.innerHTML = data.offTimer > 0 ? `Auto off in ${Math.ceil(data.offTimer/1000)}s` : "";
+        timeoutLabel.innerHTML = data.offTimer > 0 ? `AUTO OFF IN ${Math.ceil(data.offTimer/1000)}s` : "";
         if (!heating) circle.classList.toggle("on", data.ready);
       }
 
