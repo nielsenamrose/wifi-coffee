@@ -1,6 +1,5 @@
 develop
 # Wi-Fi enabled coffee machine
-main2
 
 
 ![iPhone screenshot](screenshot.PNG)
