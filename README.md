@@ -41,17 +41,6 @@ connmanctl> quit
 
 Reference: https://www.fis.gatech.edu/how-to-configure-bbw-wifi/
 
-### Automatic reboot at 3am
-
-Edit the crontab jobs
-```
-$ sudo crontab -e
-```
-Add the schedule
-```
-0 3 * * * /sbin/reboot
-```
-
 ### Install software
 
 Install required Epoll node module
