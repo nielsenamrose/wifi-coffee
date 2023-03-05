@@ -72,10 +72,10 @@
       }
 
       callApi = function(method) {
-        fetch("http://192.168.1.15:8081/api/" + method)
+        fetch("http://192.168.1.15:8081/api/" + method, { signal: AbortSignal.timeout(2000) })
             .then(response => response.json())
             .then(data => updateData(data))
-            .catch(error => errorMessage.innerHTML = `Error: ${error.message}`);
+            .catch(error => errorMessage.innerHTML = 'Something went wrong!<br>Make sure you are<br>connected to<br>Wi-Fi');
       }
 
       start = function(){
